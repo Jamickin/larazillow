@@ -11,7 +11,7 @@
                 />
                 <div class="input-error">Potential Errors</div>
             </div>
-            <div>
+            <div class="mt-4">
                 <label for="password" class="label">Password</label>
                 <input
                     id="password"
@@ -20,7 +20,7 @@
                     class="input"
                 />
             </div>
-            <div>
+            <div class="mt-4">
                 <button class="btn-primary w-full" type="submit">Login</button>
             </div>
         </div>

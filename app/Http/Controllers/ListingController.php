@@ -111,6 +111,6 @@ class ListingController extends Controller
         $listing->delete();
 
         return redirect()->back()
-        ->with('success', 'Listingwas deleted!');
+        ->with('success', 'Listing was deleted!');
     }
 }

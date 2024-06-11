@@ -75,7 +75,7 @@
                     >Street</label
                 >
                 <input
-                    v-model.number="form.code"
+                    v-model.number="form.street"
                     type="text"
                     class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
                 />

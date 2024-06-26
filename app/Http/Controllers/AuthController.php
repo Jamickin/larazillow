@@ -26,9 +26,18 @@ class AuthController extends Controller
         }
         $request -> session()->regenerate();
 
-        return redirect()->intended();
+        return redirect()->intended('listing')
+        ->with('success', 'Logged in as' . Auth::user()->name);
     }
 
-    public function destroy ()
-    {}
+    public function destroy (Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+        
+    }
 }

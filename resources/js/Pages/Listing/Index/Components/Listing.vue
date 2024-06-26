@@ -18,11 +18,12 @@
                 Edit
             </Link>
         </div>
-        <div>
+        <div v-if="user">
             <Link
                 :href="route('listing.destroy', { listing: props.listing.id })"
-                method="DELETE"
                 as="button"
+                method="DELETE"
+                class="text-red-500"
             >
                 Delete
             </Link>
@@ -37,6 +38,8 @@ import Box from "@/Components/UI/Box.vue";
 import ListingSpace from "@/Components/ListingSpace.vue";
 import Price from "@/Components/Price.vue";
 import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
 
 const props = defineProps({
     listing: Object,
@@ -50,4 +53,7 @@ const { monthlyPayment } = useMonthlyPayment(
     interestRate,
     duration
 );
+
+const page = usePage();
+const user = computed(() => page.props.user);
 </script>

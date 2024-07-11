@@ -21,6 +21,7 @@ class UserAccountController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]));
+
         Auth::login($user);
 
         return redirect()->route('listing.index')

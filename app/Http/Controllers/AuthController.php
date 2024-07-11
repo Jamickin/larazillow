@@ -27,7 +27,7 @@ class AuthController extends Controller
         $request -> session()->regenerate();
 
         return redirect()->intended('listing')
-        ->with('success', 'Logged in as' . Auth::user()->name);
+        ->with('success', 'Logged in as ' . Auth::user()->name);
     }
 
     public function destroy (Request $request)

@@ -4,20 +4,20 @@
     >
         <div class="container mx-auto w-full">
             <nav class="p-4 flex items-center justify-between">
-                <div class="text-lg font-medium">
+                <!-- <div class="text-lg font-medium">
                     <Link :href="route('listing.index')">Listings</Link>
-                </div>
+                </div> -->
                 <div
                     class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center"
                 >
-                    <Link :href="route('listing.index')">LaraZillow</Link>
+                    <Link :href="route('listing.index')">BARTER</Link>
                 </div>
                 <div v-if="user" class="flex items-center gap-4">
                     <div class="text-sm text-gray-500">
                         {{ user.name }}
                     </div>
                     <Link :href="route('listing.create')" class="btn-primary"
-                        >+ New Listing</Link
+                        >+ NEW LISTING</Link
                     >
                     <div>
                         <Link

@@ -14,15 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('listings', function (Blueprint $table) {
-            $table->unsignedTinyInteger('beds');
-            $table->unsignedTinyInteger('baths');
-            $table->unsignedSmallInteger('area');
-
-            $table->tinyText('city');
-            $table->tinyText('code');
-            $table->tinyText('street');
-            $table->tinyText('street_nr');
-
             $table->unsignedInteger('price');
         });
     }
@@ -35,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropColumns('listings', [
-            'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
+            'price'
         ]);
     }
 };

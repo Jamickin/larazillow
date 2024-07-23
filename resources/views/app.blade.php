@@ -6,7 +6,7 @@
         @routes
         @vite('resources/js/app.js')
         @inertiaHead
-        <title>Laravel</title>
+        <title>Barter</title>
     </head>
     <body class="bg-slate-200 dark:bg-gray-900 text-gray-800 dark:text-gray-300">
     @inertia

@@ -8,11 +8,11 @@
         <div class="md:col-span-5 flex flex-col gap-4">
             <Box>
                 <template #header> Basic info </template>
-                <Price :price="listing.price" class="text-2xl font-bold" />
-                <ListingSpace :listing="listing" class="text-lg" />
-                <ListingAddress :listing="listing" class="text-gray-500" />
+                <!-- <Price :price="listing.price" class="text-2xl font-bold" /> -->
+                <!-- <ListingSpace :listing="listing" class="text-lg" />
+                <ListingAddress :listing="listing" class="text-gray-500" /> -->
             </Box>
-            <Box>
+            <!-- <Box>
                 <template #header> Monthly Payment </template>
                 <div>
                     <label class="label"
@@ -67,25 +67,25 @@
                         </div>
                     </div>
                 </div>
-            </Box>
+            </Box> -->
         </div>
     </div>
 </template>
 <script setup>
-import ListingAddress from "@/Components/ListingAddress.vue";
-import ListingSpace from "@/Components/ListingSpace.vue";
-import Price from "@/Components/Price.vue";
+// import ListingAddress from "@/Components/ListingAddress.vue";
+// import ListingSpace from "@/Components/ListingSpace.vue";
+// import Price from "@/Components/Price.vue";
 import Box from "@/Components/UI/Box.vue";
 import { ref } from "vue";
-import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
+// import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
 const interestRate = ref(2.5);
 const duration = ref(25);
 const props = defineProps({
     listing: Object,
 });
-const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(
-    props.listing.price,
-    interestRate,
-    duration
-);
+// const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(
+//     props.listing.price,
+//     interestRate,
+//     duration
+// );
 </script>

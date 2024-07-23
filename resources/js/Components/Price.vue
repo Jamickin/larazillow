@@ -10,7 +10,7 @@ const props = defineProps({
 const formattedPrice = computed(() =>
     Number(props.price).toLocaleString("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "ZAR",
         maximumFractionDigits: 0,
     })
 );

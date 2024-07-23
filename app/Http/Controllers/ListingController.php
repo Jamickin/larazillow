@@ -27,7 +27,7 @@ class ListingController extends Controller
                 // 'filters' => $request->only([
                 //     'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
                 // ]),
-                'listings' => Listing::orderByDEsc('created_at')
+                'listings' => Listing::orderByDesc('created_at')
                 ->paginate(10)
                 ->withQueryString()
             ]
@@ -66,7 +66,8 @@ class ListingController extends Controller
                     // 'code' => 'required',
                     // 'street' => 'required',
                     // 'street_nr' => 'required|min:1|max:1000',
-                    'price' => 'required|integer|min:1|max:20000000',
+                    'tradeWhat' => 'required|string',
+                    'forWhat' => 'required|string'
                 ])
             );
 
@@ -118,7 +119,8 @@ class ListingController extends Controller
                     // 'code' => 'required',
                     // 'street' => 'required',
                     // 'street_nr' => 'required|min:1|max:1000',
-                    'price' => 'required|integer|min:1|max:20000000',
+                    'tradeWhat' => 'required|string',
+                    'forWhat' => 'required|string'
                 ])
             );
     

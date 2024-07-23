@@ -12,7 +12,7 @@ class Listing extends Model
 
     // protected $fillable = ['city', 'area', 'baths', 'beds', 'code', 'price', 'street', 'street_nr'
     // ];
-    protected $fillable = ['price'];
+    protected $fillable = ['tradeWhat', 'forWhat'];
     
 
     public function owner(): BelongsTo 

@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="create">
         <div class="grid grid-cols-6 gap-4">
-            <div class="col-span-2">
+            <!-- <div class="col-span-2">
                 <label class="label">Beds</label>
                 <input v-model.number="form.beds" type="text" class="input" />
                 <div v-if="form.errors.beds">
@@ -97,9 +97,9 @@
                 <div v-if="form.errors.street_nr" class="input-error">
                     {{ form.errors.street_nr }}
                 </div>
-            </div>
+            </div> -->
 
-            <div class="col-span-6">
+            <!-- <div class="col-span-6">
                 <label
                     class="block mb-1 text-gray-500 dark:text-gray-300 font-medium"
                     >Price</label
@@ -110,6 +110,35 @@
                     class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
                 />
                 <div v-if="form.errors.price" class="input-error">
+                    {{ form.errors.price }}
+                </div>
+            </div> -->
+            <div class="col-span-6">
+                <label
+                    class="block mb-1 text-gray-500 dark:text-gray-300 font-medium"
+                    >Item</label
+                >
+                <input
+                    v-model="form.tradeWhat"
+                    type="text"
+                    class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
+                />
+                <div v-if="form.errors.tradeWhat" class="input-error">
+                    {{ form.errors.price }}
+                </div>
+            </div>
+
+            <div class="col-span-6">
+                <label
+                    class="block mb-1 text-gray-500 dark:text-gray-300 font-medium"
+                    >What do you want?</label
+                >
+                <input
+                    v-model="form.forWhat"
+                    type="text"
+                    class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
+                />
+                <div v-if="form.errors.forWhat" class="input-error">
                     {{ form.errors.price }}
                 </div>
             </div>
@@ -124,14 +153,8 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 const form = useForm({
-    beds: 0,
-    baths: 0,
-    area: 0,
-    city: null,
-    street: null,
-    code: null,
-    street_nr: null,
-    price: 0,
+    tradeWhat: null,
+    forWhat: null,
 });
 const create = () => form.post(route("listing.store"));
 </script>

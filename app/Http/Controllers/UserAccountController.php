@@ -14,17 +14,30 @@ class UserAccountController extends Controller
         return inertia('UserAccount/Create');
     }
 
-    public function store(Request $request)
-    {
-        $user = User::create($request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]));
 
-        Auth::login($user);
 
-        return redirect()->route('listing.index')
-            ->with('success', 'Account Created!');
-    }
+public function store(Request $request)
+{
+    // Validate the request
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    // Create the user with a default is_admin value
+    $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+        'is_admin' => false, // Set default value
+    ]);
+
+    // Log in the user
+    Auth::login($user);
+
+    // Redirect with success message
+    return redirect()->route('listing.index')
+        ->with('success', 'Account Created!');
+}
 }

@@ -20,6 +20,6 @@ Route::post('login', [AuthController::class, 'store'])->name('login.store');
 Route::get('logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::resource('user-account', UserAccountController::class)
-    ->only(['create' ,'store']);
+    ->only(['create' ,'store', 'show']);
 
 Route::post('register', [UserAccountController::class, 'store'])->name('register.store');

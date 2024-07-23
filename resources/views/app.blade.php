@@ -8,7 +8,7 @@
         @inertiaHead
         <title>Barter</title>
     </head>
-    <body class="bg-slate-200 dark:bg-gray-900 text-gray-800 dark:text-gray-300">
+    <body class="bg-slate-200 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-300">
     @inertia
     </body>
 </html>

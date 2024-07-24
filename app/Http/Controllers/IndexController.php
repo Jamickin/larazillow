@@ -10,20 +10,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-
-        // dd(Auth::User());
-        // dd(auth::check());
-
-
-        return inertia('Index/Index', [
-            'message' => 'Hello'
-        ]);
-    }
-
-    public function show()
-    {
-        return inertia('Index/Show', [
-            'message' => 'This is a different message'
-        ]);
+        return redirect()->route('listing.index');
     }
 }

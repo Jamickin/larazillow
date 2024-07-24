@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
-
     public function __construct()
-     {
+    {
         $this->authorizeResource(Listing::class, 'listing');
-     }
-    
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,12 +23,10 @@ class ListingController extends Controller
         return inertia(
             'Listing/Index',
             [
-                // 'filters' => $request->only([
-                //     'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
-                // ]),
-                'listings' => Listing::orderByDesc('created_at')
-                ->paginate(10)
-                ->withQueryString()
+                'listings' => Listing::with('owner')  // Eager load owner
+                    ->orderByDesc('created_at')
+                    ->paginate(10)
+                    ->withQueryString()
             ]
         );
     }
@@ -41,11 +38,8 @@ class ListingController extends Controller
      */
     public function create(Listing $listing)
     {
+        $this->authorize('create', $listing);
 
-        if (Auth::user()->cannot('create', $listing)) {
-                abort(403);
-             }
-        
         return inertia('Listing/Create');
     }
 
@@ -57,46 +51,40 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-            $request->user()->listings()->create(
-                $request->validate([
-                    // 'beds' => 'required|integer|min:0|max:20',
-                    // 'baths' => 'required|integer|min:0|max:20',
-                    // 'area' => 'required|integer|min:15|max:1500',
-                    // 'city' => 'required',
-                    // 'code' => 'required',
-                    // 'street' => 'required',
-                    // 'street_nr' => 'required|min:1|max:1000',
-                    'tradeWhat' => 'required|string',
-                    'forWhat' => 'required|string'
-                ])
-            );
+        $request->validate([
+            'tradeWhat' => 'required|string',
+            'forWhat' => 'required|string'
+        ]);
+
+        $request->user()->listings()->create($request->all());
 
         return redirect()->route('listing.index')
-        ->with('success','Listing was created!');
+            ->with('success', 'Listing was created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Listing  $listing
      * @return \Illuminate\Http\Response
      */
     public function show(Listing $listing)
     {
-        // if (Auth::user()->cannot('view', $listing)) {
-        //      abort(403);
-        // }
-        // $this->authorize('view', $listing);
+        // Eager load the owner relationship
+        $listing->load('owner');
 
-        return inertia(
-            'Listing/Show',
-            [
-                'listing' => $listing
-            ]
-        );
+        return inertia('Listing/Show', [
+            'listing' => $listing,
+            'owner' => $listing->owner // Pass the owner information to the view
+        ]);
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Listing $listing)
     {
         return inertia(
@@ -107,34 +95,37 @@ class ListingController extends Controller
         );
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Listing $listing)
+    {
+        $request->validate([
+            'tradeWhat' => 'required|string',
+            'forWhat' => 'required|string'
+        ]);
 
-    public function update(Request $request, Listing $listing)    {
-        {
-            $listing->update(
-                $request->validate([
-                    // 'beds' => 'required|integer|min:0|max:20',
-                    // 'baths' => 'required|integer|min:0|max:20',
-                    // 'area' => 'required|integer|min:15|max:1500',
-                    // 'city' => 'required',
-                    // 'code' => 'required',
-                    // 'street' => 'required',
-                    // 'street_nr' => 'required|min:1|max:1000',
-                    'tradeWhat' => 'required|string',
-                    'forWhat' => 'required|string'
-                ])
-            );
-    
-            return redirect()->route('listing.index')
-            ->with('success','Listing was changed!');
-        }
+        $listing->update($request->all());
+
+        return redirect()->route('listing.index')
+            ->with('success', 'Listing was changed!');
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Listing $listing)
     {
         $listing->delete();
 
         return redirect()->back()
-        ->with('success', 'Listing was deleted!');
+            ->with('success', 'Listing was deleted!');
     }
 }

@@ -5,21 +5,31 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\ProfileController;
 
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/hello', [IndexController::class, 'show'])->middleware('auth');
+// Define the home route to display listings
+Route::get('index', [ListingController::class, 'index'])->name('home');
 
+// Apply authentication middleware to create, destroy, store, edit, and update methods
+Route::middleware('auth')->group(function () {
+    Route::resource('listing', ListingController::class)
+        ->only(['create', 'destroy', 'store', 'edit', 'update']);
+});
+
+// Routes for listing without authentication middleware
 Route::resource('listing', ListingController::class)
-    ->only(['create', 'destroy', 'store', 'edit', 'update'])
-    ->middleware('auth');
-Route::resource('listing', ListingController::class)
-    ->except(['create', 'destroy', 'store', 'edit', 'update']);
+    ->only(['index', 'show']); // Add other methods if needed
 
+// Authentication routes
 Route::get('login', [AuthController::class, 'create'])->name('login');
 Route::post('login', [AuthController::class, 'store'])->name('login.store');
 Route::get('logout', [AuthController::class, 'destroy'])->name('logout');
 
+// User account routes
 Route::resource('user-account', UserAccountController::class)
-    ->only(['create' ,'store', 'show']);
+    ->only(['create', 'store', 'show']);
 
 Route::post('register', [UserAccountController::class, 'store'])->name('register.store');
+
+// Profile route
+Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');

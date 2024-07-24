@@ -4,25 +4,26 @@
     >
         <div class="container mx-auto w-full">
             <nav class="p-4 flex items-center justify-between">
-                <div
-                    class="text-xl text-orange-600 dark:text-orange-300 font-bold text-center"
-                >
-                    <Link :href="route('listing.index')">BARTER</Link>
+                <div>
+                    <Link :href="route('listing.index')"><h1>BARTER</h1></Link>
                 </div>
                 <div v-if="user" class="flex items-center gap-4">
                     <div class="text-sm text-zinc-500">
-                        {{ user.name }}
+                        <Link :href="route('profile.show', user.id)">
+                            {{ user.name }}
+                        </Link>
                     </div>
-                    <Link :href="route('listing.create')" class="btn-primary"
-                        >+ NEW LISTING</Link
-                    >
+                    <Link :href="route('listing.create')" class="btn-primary">
+                        + NEW LISTING
+                    </Link>
                     <div>
                         <Link
                             :href="route('logout')"
                             as="button"
                             class="text-red-500"
-                            >Logout</Link
                         >
+                            Logout
+                        </Link>
                     </div>
                 </div>
                 <div v-else class="flex gap-4 items-center">

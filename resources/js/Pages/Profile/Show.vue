@@ -17,7 +17,7 @@
                             listing.forWhat
                         }}</span>
                     </div>
-                    <div>
+                    <div v-if="canEditOrDelete">
                         <Link
                             :href="
                                 route('listing.edit', { listing: listing.id })
@@ -26,17 +26,20 @@
                             Edit
                         </Link>
                     </div>
-
-                    <Link
-                        :href="
-                            route('listing.destroy', { listing: listing.id })
-                        "
-                        as="button"
-                        method="DELETE"
-                        class="text-red-500"
-                    >
-                        Delete
-                    </Link>
+                    <div v-if="canEditOrDelete">
+                        <Link
+                            :href="
+                                route('listing.destroy', {
+                                    listing: listing.id,
+                                })
+                            "
+                            as="button"
+                            method="DELETE"
+                            class="text-red-500"
+                        >
+                            Delete
+                        </Link>
+                    </div>
                 </Box>
             </li>
         </ul>
@@ -46,9 +49,22 @@
 <script setup>
 import Box from "@/Components/UI/Box.vue";
 import { Link } from "@inertiajs/vue3";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
 
 const props = defineProps({
     listings: Array,
     user: Object,
+});
+
+const page = usePage();
+const currentUser = computed(() => page.props.currentUser);
+
+const canEditOrDelete = computed(() => {
+    // Ensure `user` is accessed from `props`
+    return (
+        currentUser.value &&
+        (currentUser.value.id === props.user.id || currentUser.value.is_admin)
+    );
 });
 </script>

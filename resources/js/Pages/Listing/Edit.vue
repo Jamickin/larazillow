@@ -1,76 +1,39 @@
 <template>
     <form @submit.prevent="update">
         <div class="grid grid-cols-6 gap-4">
-            <div class="col-span-2">
-                <label class="label">Beds</label>
-                <input v-model.number="form.beds" type="text" class="input" />
-                <div v-if="form.errors.beds">
-                    {{ form.errors.beds }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>Baths</label>
-                <input v-model.number="form.baths" type="text" class="input" />
-                <div v-if="form.errors.baths">
-                    {{ form.errors.baths }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>Area</label>
-                <input v-model.number="form.area" type="text" class="input" />
-                <div v-if="form.errors.area">
-                    {{ form.errors.area }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>City</label>
-                <input v-model="form.city" type="text" class="input" />
-                <div v-if="form.errors.city">
-                    {{ form.errors.city }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>Post Code</label>
-                <input v-model="form.code" type="text" class="input" />
-                <div v-if="form.errors.code">
-                    {{ form.errors.code }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>Street</label>
-                <input v-model="form.street" type="text" class="input" />
-                <div v-if="form.errors.street">
-                    {{ form.errors.street }}
-                </div>
-            </div>
-
-            <div class="col-span-2">
-                <label>Street Nr</label>
+            <div class="col-span-6">
+                <label
+                    class="block mb-1 text-gray-500 dark:text-gray-300 font-medium"
+                    >Item</label
+                >
                 <input
-                    v-model.number="form.street_nr"
+                    v-model="form.tradeWhat"
                     type="text"
-                    class="input"
+                    class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
                 />
-                <div v-if="form.errors.street_nr">
-                    {{ form.errors.street_nr }}
+                <div v-if="form.errors.tradeWhat" class="input-error">
+                    {{ form.errors.tradeWhat }}
                 </div>
             </div>
 
-            <div class="col-span-2">
-                <label>Price</label>
-                <input v-model.number="form.price" type="text" class="input" />
-                <div v-if="form.errors.price">
-                    {{ form.errors.price }}
+            <div class="col-span-6">
+                <label
+                    class="block mb-1 text-gray-500 dark:text-gray-300 font-medium"
+                    >What do you want?</label
+                >
+                <input
+                    v-model="form.forWhat"
+                    type="text"
+                    class="block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500"
+                />
+                <div v-if="form.errors.forWhat" class="input-error">
+                    {{ form.errors.forWhat }}
                 </div>
             </div>
         </div>
-        <div class="col-span-2">
-            <button type="submit" class="btn-primary">Edit</button>
+
+        <div class="col-span-6">
+            <button type="submit" class="btn-primary">Update</button>
         </div>
     </form>
 </template>
@@ -83,14 +46,8 @@ const props = defineProps({
 });
 
 const form = useForm({
-    beds: props.listing.beds,
-    baths: props.listing.baths,
-    area: props.listing.area,
-    city: props.listing.city,
-    street: props.listing.street,
-    code: props.listing.code,
-    street_nr: props.listing.street_nr,
-    price: props.listing.price,
+    tradeWhat: props.listing.tradeWhat,
+    forWhat: props.listing.forWhat,
 });
 
 const update = () =>

@@ -8,8 +8,8 @@ use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\ProfileController;
 
 // Define the home route to display listings
-Route::get('index', [ListingController::class, 'index'])->name('home');
-
+Route::get('/', [IndexController::class, 'index']);
+  
 // Apply authentication middleware to create, destroy, store, edit, and update methods
 Route::middleware('auth')->group(function () {
     Route::resource('listing', ListingController::class)
@@ -33,3 +33,5 @@ Route::post('register', [UserAccountController::class, 'store'])->name('register
 
 // Profile route
 Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+// routes/web.php
+

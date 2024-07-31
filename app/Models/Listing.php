@@ -20,4 +20,5 @@ class Listing extends Model
             'by_user_id'
         );
     }
+  
 }

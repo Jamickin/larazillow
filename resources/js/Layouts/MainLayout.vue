@@ -7,10 +7,10 @@
                 <div>
                     <Link :href="route('listing.index')"><h1>BARTER</h1></Link>
                 </div>
-                <div v-if="user" class="flex items-center gap-4">
+                <div v-if="authUser" class="flex items-center gap-4">
                     <div class="text-sm text-zinc-500">
-                        <Link :href="route('profile.show', user.id)">
-                            {{ user.name }}
+                        <Link :href="route('profile.show', authUser.id)">
+                            {{ authUser.name }}
                         </Link>
                     </div>
                     <Link :href="route('listing.create')" class="btn-primary">
@@ -51,5 +51,5 @@ import { Link, usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const flashSuccess = computed(() => page.props.flash.success);
-const user = computed(() => page.props.user);
+const authUser = computed(() => page.props.auth.user); // Reference the authenticated user
 </script>

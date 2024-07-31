@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
-{
+{   
     public function __construct()
     {
         $this->authorizeResource(Listing::class, 'listing');
@@ -61,6 +61,22 @@ class ListingController extends Controller
         return redirect()->route('listing.index')
             ->with('success', 'Listing was created!');
     }
+
+    /**
+ * Show the form for creating an offer based on the specified listing.
+ *
+ * @param  Listing  $listing
+ * @return \Illuminate\Http\Response
+ */
+    public function createOffer(Listing $listing)
+    {
+        // Eager load the owner relationship for the listing
+        $listing->load('owner');
+
+        return inertia('Listing/CreateOffer', [
+            'listing' => $listing
+        ]);
+}
 
     /**
      * Display the specified resource.

@@ -1,35 +1,37 @@
 <template>
-    <div>
-        <h1>User Profile</h1>
-        <p>Name: {{ user.name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <h2>Listings</h2>
-        <ul>
-            <li v-for="listing in listings" :key="listing.id">
-                <Box>
-                    <div>
-                        {{ user.name }}
-                        <span class="text-orange-500">{{
-                            listing.tradeWhat
-                        }}</span>
-                        for a
-                        <span class="text-orange-500">{{
-                            listing.forWhat
-                        }}</span>
-                    </div>
-                </Box>
-            </li>
-        </ul>
+    <div class="flex flex-col">
+        <div>
+            <h1 class="text-2xl font-bold mb-4">
+                Lister: {{ listing.owner.name }}
+            </h1>
+            <Box>
+                <h2 class="text-xl font-semibold">Trade What:</h2>
+                <p class="text-lg">{{ listing.tradeWhat }}</p>
+            </Box>
+            <Box class="mt-4">
+                <h2 class="text-xl font-semibold">For What:</h2>
+                <p class="text-lg">{{ listing.forWhat }}</p>
+            </Box>
+            <div class="mt-4" v-if="listing.pictureUrl">
+                <h2 class="text-xl font-semibold">Picture:</h2>
+                <img
+                    :src="listing.pictureUrl"
+                    alt="Listing Picture"
+                    class="w-full max-w-md mt-2"
+                />
+            </div>
+            <div class="mt-4">
+                <Link :href="route('listing.index')" class="btn-primary">
+                    Back to Listings
+                </Link>
+            </div>
+        </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import Box from "@/Components/UI/Box.vue";
+import { Link, usePage } from "@inertiajs/vue3";
 
-export default {
-    props: {
-        user: Object,
-        listings: Array,
-    },
-};
+const { listing } = usePage().props;
 </script>

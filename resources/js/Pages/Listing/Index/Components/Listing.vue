@@ -1,19 +1,20 @@
 <template>
     <Box>
         <div>
-            <Link :href="route('profile.show', { id: listing.owner.id })">
-                <div class="flex items-center gap-1">
-                    <span class="text-orange-500">
+            <div class="flex items-center gap-1">
+                <span>
+                    <Link
+                        :href="route('profile.show', { id: listing.owner.id })"
+                    >
                         {{ listing.owner.name }}
-                    </span>
-                </div>
-            </Link>
+                    </Link>
+                </span>
+            </div>
             <Link :href="route('listing.show', { listing: listing.id })">
-                <Box>
-                    wants a
-                    <span class="text-orange-500">{{ listing.tradeWhat }}</span>
+                <Box class="text-center px-auto">
+                    wants a <span> {{ listing.tradeWhat }}</span>
                     for a
-                    <span class="text-orange-500">{{ listing.forWhat }}</span>
+                    <span>{{ listing.forWhat }}</span>
                 </Box>
             </Link>
         </div>

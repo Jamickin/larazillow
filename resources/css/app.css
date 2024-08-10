@@ -32,6 +32,12 @@
     }
 
     h1 {
-        @apply text-xl text-orange-600 dark:text-orange-300 font-bold text-center;
+        @apply text-xl;
+    }
+    a {
+        @apply text-sm text-orange-600 font-bold hover:text-orange-300;
+    }
+    span {
+        @apply text-orange-600;
     }
 }

@@ -18,14 +18,14 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return inertia(
             'Listing/Index',
             [
                 'listings' => Listing::with('owner')  // Eager load owner
                     ->orderByDesc('created_at')
-                    ->paginate(10)
+                    ->paginate(9)
                     ->withQueryString()
             ]
         );

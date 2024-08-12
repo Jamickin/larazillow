@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->tinyText('tradeWhat');
+            $table->tinyText('forWhat');
         });
     }
 
@@ -27,5 +29,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('listings');
+
     }
 };

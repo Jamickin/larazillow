@@ -5,7 +5,7 @@
         <div class="container mx-auto w-full">
             <nav class="p-4 flex items-center justify-between">
                 <div>
-                    <Link :href="route('listing.index')"><h1>BARTER</h1></Link>
+                    <h1><Link :href="route('listing.index')">BARTER</Link></h1>
                 </div>
                 <div v-if="authUser" class="flex items-center gap-4">
                     <div class="text-sm text-zinc-500">
@@ -20,7 +20,7 @@
                         <Link
                             :href="route('logout')"
                             as="button"
-                            class="text-red-500"
+                            class="input-error"
                         >
                             Logout
                         </Link>

@@ -18,61 +18,26 @@ class ListingController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
-     */
-    public function index(Request $request)
+     */ 
+    
+     public function index(Request $request)
     {
         $filters = $request->only([
             'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
         ]);
 
-        $query = Listing::orderByDesc('created_at')
-        ->when(
-            $filters['priceFrom'] ?? false,
-            fn ($query, $value) => $query->where('price', '>=', $value)
-        )->when(
-            $filters['priceTo'] ?? false,
-            fn ($query, $value) => $query->where('price', '<=', $value)
-        )->when(
-            $filters['beds'] ?? false,
-            fn ($query, $value) => $query->where('beds', (int)$value < 6 ? '=' : '>=', $value)
-        )->when(
-            $filters['baths'] ?? false,
-            fn ($query, $value) => $query->where('baths', (int)$value < 6 ? '=' : '>=', $value)
-        )->when(
-            $filters['areaFrom'] ?? false,
-            fn ($query, $value) => $query->where('area', '>=', $value)
-        )->when(
-            $filters['areaTo'] ?? false,
-            fn ($query, $value) => $query->where('area', '>=', $value)
-        );
 
-      
-
-        // if (!empty($filters['priceTo'])) {
-        //     $query->where('price', '<=', $filters['priceTo']);
-        // }
-
-        // if (!empty($filters['beds'])) {
-        //     $query->where('beds', $filters['beds']);
-        // }
-
-        // if (!empty($filters['baths'])) {
-        //     $query->where('baths', $filters['baths']);
-        // }
-
-        // if (!empty($filters['areaFrom'])) {
-        //     $query->where('area', '>=', $filters['areaFrom']);
-        // }
-
-        // if (!empty($filters['areaTo'])) {
-        //     $query->where('area', '<=', $filters['areaTo']);
-        // }
-
-        return inertia('Listing/Index', [
+    return inertia(
+        'Listing/Index',
+        [
             'filters' => $filters,
-            'listings' => $query->paginate(10)->withQueryString(),
-        ]);
-    }
+            'listings' => Listing::mostRecent()
+            ->filter($filters)
+            ->paginate(9)
+            ->withQueryString()
+        ]
+    );
+}
 
     /**
      * Show the form for creating a new resource.
@@ -166,17 +131,5 @@ class ListingController extends Controller
             ->with('success', 'Listing was updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Listing  $listing
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Listing $listing)
-    {
-        $listing->delete();
-
-        return redirect()->back()
-            ->with('success', 'Listing was deleted!');
-    }
+   
 }

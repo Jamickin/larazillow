@@ -4,16 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\UserAccountController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/hello', [IndexController::class, 'show'])->middleware('auth');
 
 Route::resource('listing', ListingController::class)
-    ->only(['create', 'destroy', 'store', 'edit', 'update'])
+    ->only(['create', 'store', 'edit', 'update'])
     ->middleware('auth');
 Route::resource('listing', ListingController::class)
-    ->except(['create', 'destroy', 'store', 'edit', 'update']);
+    ->except(['create', 'store', 'edit', 'update']);
 
 Route::get('login', [AuthController::class, 'create'])->name('login');
 Route::post('login', [AuthController::class, 'store'])->name('login.store');
@@ -23,3 +24,10 @@ Route::resource('user-account', UserAccountController::class)
     ->only(['create' ,'store']);
 
 Route::post('register', [UserAccountController::class, 'store'])->name('register.store');
+
+Route::prefix('realtor')
+->name('realtor.')
+->middleware('auth')
+->group(function(){
+    Route::resource('listing', RealtorListingController::class);
+});

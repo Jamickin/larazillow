@@ -19,65 +19,23 @@ class ListingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Inertia\Response
      */ 
-    
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $filters = $request->only([
             'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
         ]);
 
-
-    return inertia(
-        'Listing/Index',
-        [
-            'filters' => $filters,
-            'listings' => Listing::mostRecent()
+        $listings = Listing::mostRecent()
             ->filter($filters)
             ->paginate(9)
-            ->withQueryString()
-        ]
-    );
-}
+            ->withQueryString();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  Listing  $listing
-     * @return \Inertia\Response
-     */
-    public function create(Listing $listing)
-    {
-        if (Auth::user()->cannot('create', $listing)) {
-            abort(403);
-        }
-
-        return inertia('Listing/Create');
+        return inertia('Listing/Index', [
+            'filters' => $filters,
+            'listings' => $listings,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
-    {
-        $request->user()->listings()->create(
-            $request->validate([
-                'beds' => 'required|integer|min:0|max:20',
-                'baths' => 'required|integer|min:0|max:20',
-                'area' => 'required|integer|min:15|max:1500',
-                'city' => 'required|string',
-                'code' => 'required|string',
-                'street' => 'required|string',
-                'street_nr' => 'required|integer|min:1|max:1000',
-                'price' => 'required|integer|min:1|max:20000000',
-            ])
-        );
-
-        return redirect()->route('listing.index')
-            ->with('success', 'Listing was created!');
-    }
 
     /**
      * Display the specified resource.
@@ -87,49 +45,13 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        $listing->load(['images']);
+        $offer = !Auth::user() ?
+            null : $listing->offers()->byMe()->first();
+
         return inertia('Listing/Show', [
             'listing' => $listing,
+            'offerMade' => $offer
         ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Listing  $listing
-     * @return \Inertia\Response
-     */
-    public function edit(Listing $listing)
-    {
-        return inertia('Listing/Edit', [
-            'listing' => $listing,
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Listing  $listing
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, Listing $listing)
-    {
-        $listing->update(
-            $request->validate([
-                'beds' => 'required|integer|min:0|max:20',
-                'baths' => 'required|integer|min:0|max:20',
-                'area' => 'required|integer|min:15|max:1500',
-                'city' => 'required|string',
-                'code' => 'required|string',
-                'street' => 'required|string',
-                'street_nr' => 'required|integer|min:1|max:1000',
-                'price' => 'required|integer|min:1|max:20000000',
-            ])
-        );
-
-        return redirect()->route('listing.index')
-            ->with('success', 'Listing was updated!');
-    }
-
-   
 }

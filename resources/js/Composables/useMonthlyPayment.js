@@ -10,11 +10,22 @@ export const useMonthlyPayment = (total, interestRate, duration) => {
         const numberOfPaymentMonths =
             (isRef(duration) ? duration.value : duration) * 12;
 
+        const denominator =
+            Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1;
+
+        // Check for division by zero and handle it gracefully
+        if (Math.abs(denominator) < Number.EPSILON) {
+            console.warn(
+                "Potential division by zero. Check interest rate and duration."
+            );
+            return 0; // Or another suitable default value
+        }
+
         return (
             (principle *
                 monthlyInterest *
                 Math.pow(1 + monthlyInterest, numberOfPaymentMonths)) /
-            (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
+            denominator
         );
     });
 
@@ -29,6 +40,8 @@ export const useMonthlyPayment = (total, interestRate, duration) => {
     const totalInterest = computed(
         () => totalPaid.value - (isRef(total) ? total.value : total)
     );
+
+    console.log("Monthly Payment:", monthlyPayment.value);
 
     return { monthlyPayment, totalPaid, totalInterest };
 };

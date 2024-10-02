@@ -41,7 +41,5 @@ export const useMonthlyPayment = (total, interestRate, duration) => {
         () => totalPaid.value - (isRef(total) ? total.value : total)
     );
 
-    console.log("Monthly Payment:", monthlyPayment.value);
-
     return { monthlyPayment, totalPaid, totalInterest };
 };

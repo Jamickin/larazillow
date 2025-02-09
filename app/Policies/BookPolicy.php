@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Listing;
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -26,7 +26,7 @@ class ListingPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, Listing $listing): bool
+    public function view(?User $user, Book $book): bool
     {
         return true;
     }
@@ -42,32 +42,32 @@ class ListingPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Listing $listing): bool
+    public function update(User $user, Book $book): bool
     {
-        return $user->id === $listing->by_user_id;    
+         return $user->id === $book->by_user_id;    
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Listing $listing): bool
+    public function delete(User $user, Book $book): bool
     {
-        return $user->id === $listing->by_user_id;    
+        return $user->id === $book->by_user_id;    
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Listing $listing): bool
+    public function restore(User $user, Book $book): bool
     {
-        return $user->id === $listing->by_user_id;    
+        return $user->id === $book->by_user_id;    
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Listing $listing): bool
+    public function forceDelete(User $user, Book $book): bool
     {
-        return $user->id === $listing->by_user_id;    
+        return $user->id === $book->by_user_id;    
     }
 }

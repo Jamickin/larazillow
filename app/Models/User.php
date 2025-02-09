@@ -46,19 +46,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function listings(): HasMany 
+    public function books(): HasMany 
     {
         return $this->hasMany(
-            Listing::class,
+            Book::class,
             'by_user_id'
         );
     }
 
-    public function offers(): HasMany
-    {
-        return $this->hasMany(
-            Offer::class,
-            'bidder_id'
-        );
-    }
+    // public function offers(): HasMany
+    // {
+    //     return $this->hasMany(
+    //         Offer::class,
+    //         'bidder_id'
+    //     );
+    // }
 }

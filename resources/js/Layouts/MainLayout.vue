@@ -4,16 +4,16 @@
     >
         <div class="container mx-auto w-full">
             <nav class="p-4 flex items-center justify-between">
-                <div class="text-lg font-medium">
+                <!-- <div class="text-lg font-medium">
                     <Link :href="route('listing.index')">Listings</Link>
-                </div>
+                </div> -->
                 <div
                     class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center"
                 >
-                    <Link :href="route('listing.index')">LaraZillow</Link>
+                    <Link :href="route('listing.index')">Chata</Link>
                 </div>
                 <div v-if="user" class="flex items-center gap-4">
-                    <Link
+                    <!-- <Link
                         class="text-gray-500 relative pr-2 py-2 text-lg"
                         :href="route('notification.index')"
                     >
@@ -24,18 +24,18 @@
                         >
                             {{ notificationCount }}
                         </div>
-                    </Link>
+                    </Link> -->
                     <Link
                         :href="route('realtor.listing.index')"
                         class="text-sm text-gray-500"
                     >
                         {{ user.name }}
                     </Link>
-                    <Link
+                    <!-- <Link
                         :href="route('realtor.listing.create')"
                         class="btn-primary"
                         >+ New Listing</Link
-                    >
+                    > -->
                     <div>
                         <Link
                             :href="route('logout')"
@@ -72,7 +72,7 @@ const page = usePage();
 const flashSuccess = computed(() => page.props.flash.success);
 const user = computed(() => page.props.user);
 
-const notificationCount = computed(() =>
-    Math.min(page.props.user.notificationCount, 9)
-);
+// const notificationCount = computed(() =>
+//     Math.min(page.props.user.notificationCount, 9)
+// );
 </script>

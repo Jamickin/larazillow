@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('listing_images', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        // Schema::create('listing_images', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->timestamps();
 
 
-            $table->string('filename');
+        //     $table->string('filename');
 
-            $table->foreignIdFor(
-                \App\Models\Listing::class
-            )->constrained('listings');
-        });
+        //     $table->foreignIdFor(
+        //         \App\Models\Listing::class
+        //     )->constrained('listings');
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('listing_images');
+        // Schema::dropIfExists('listing_images');
     }
 };

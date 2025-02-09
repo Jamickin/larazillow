@@ -1,5 +1,5 @@
 <template>
-    <Filters :filters="filters" />
+    <!-- <Filters :filters="filters" /> -->
     <div
         v-if="listings.data.length"
         class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
@@ -24,10 +24,10 @@
 <script setup>
 import Listing from "./Index/Components/Listing.vue";
 import Pagination from "@/Components/UI/Pagination.vue";
-import Filters from "@/Pages/Listing/Index/Components/Filters.vue";
+// import Filters from "@/Pages/Listing/Index/Components/Filters.vue";
 
 const props = defineProps({
     listings: Object,
-    filters: Object,
+    // filters: Object,
 });
 </script>

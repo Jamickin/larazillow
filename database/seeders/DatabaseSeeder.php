@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             'is_admin' => false
         ]);
 
-        \App\Models\Listing::factory(10)->create([
-             'by_user_id' => 1
+        \App\Models\Book::factory(2)->create([
+            'by_user_id' => 1
         ]);
-        \App\Models\Listing::factory(10)->create([
+        \App\Models\Book::factory(2)->create([
             'by_user_id' => 2
        ]);
     }

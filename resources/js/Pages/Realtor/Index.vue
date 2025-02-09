@@ -1,8 +1,8 @@
 <template>
-    <h1 class="text-3xl mb-4">Your Listings</h1>
-    <section>
+    <h1 class="text-3xl mb-4">Books</h1>
+    <!-- <section>
         <RealtorFilters :filters="filters" />
-    </section>
+    </section> -->
 
     <section
         v-if="listings.data.length"

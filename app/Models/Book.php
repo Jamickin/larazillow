@@ -45,10 +45,10 @@ class Book extends Model
     /**
      * Scope a query to only include the most recent listings.
      */
-    // public function scopeMostRecent(Builder $query): Builder
-    // {
-    //     return $query->orderByDesc('created_at');
-    // }
+     public function scopeMostRecent(Builder $query): Builder
+     {
+         return $query->orderByDesc('created_at');
+     }
 
     /**
      * Scope a query to filter listings based on various criteria.

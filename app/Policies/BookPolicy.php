@@ -6,7 +6,7 @@ use App\Models\Book;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class ListingPolicy
+class BookPolicy
 {
 
     public function before(?User $user, $ability)
